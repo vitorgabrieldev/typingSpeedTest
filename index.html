@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <title>Typing Speed Test - WebSite</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Require Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Style Sheets -->
+    <link rel="stylesheet" href="./fonts.css">
+    <link rel="stylesheet" href="./app.css">
+
+    <!-- Scripts -->
+    <script src="./app.js" defer></script>
+
+</head>
+<body>
+    <!-- Components -->
+    <section class="contaienrMain">
+        <div class="containerInput">
+            <input type="text" placeholder="Digite aqui..." name="inputLetters" onchange="settingsTyping.verifyTyping()" class="inputLetters" id="inputLetters" spellcheck="false">
+        </div>
+        <div class="testTyping">
+            <h1 id="text"></h1>
+        </div>
+        <div class="buttonsFunction">
+            <button id="nextText" type="button" class="btns">Trocar</button>
+        </div>
+    </section>
+</body>
+</html>
