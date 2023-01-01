@@ -1,35 +1,63 @@
-const arrayText = [
-    {text: 'Olá, meu nome é Vitor Gabriel De Oliveira, este é um teste de digitação'},
-    {text: 'Eu amo programação, acho algo incrivela liberdade de criação'},
-    {text: 'Eu amo muito muito muito uma pessoa, espero que ela saiba muito bem disso'},
-    {text: 'Adoro fazer longas calls, nunca me canso de falar nelas'},
-    {text: 'Comprei uma calça e uma camisa muito bonita, junto de um teclado e um mouse'},
-];
+const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random';
+const quoteDisplayElement = document.getElementById('quoteDisplay');
+const quoteInputElement = document.getElementById('quoteInput')
+const timerElement = document.getElementById('timer');
 
-// Settings Tokens
-let tokenText = 0;
-let arrayTyping = '';
+quoteInputElement.addEventListener('input', () => {
+  const arrayQuote = quoteDisplayElement.querySelectorAll('span');
+  const arrayValue = quoteInputElement.value.split('');
 
-window.addEventListener('load', () => {settingsTyping.mainSettings()});
+  let correct = true
+  arrayQuote.forEach((characterSpan, index) => {
+    const character = arrayValue[index];
+    if (character == null) {
+      characterSpan.classList.remove('correct');
+      characterSpan.classList.remove('incorrect');
+      correct = false;
+    } else if (character === characterSpan.innerText) {
+      characterSpan.classList.add('correct');
+      characterSpan.classList.remove('incorrect');
+    } else {
+      characterSpan.classList.remove('correct');
+      characterSpan.classList.add('incorrect');
+      correct = false;
+    };
+  });
 
-const settingsTyping = {
-    mainSettings: function() {
-        document.querySelector('#text').innerHTML = arrayText[tokenText].text;
-    },
-    nextText: function() {
-        if(tokenText >= arrayText.length - 1) {
-            tokenText = 0;
-        } else {
-            tokenText ++;
-        };
-        document.querySelector('#text').innerHTML = arrayText[tokenText].text;
-    },
-    verifyTyping: function() {;
-        if(document.querySelector('#inputLetters').value === arrayText[tokenText].text) {
-            console.log('Correto!')
-        } else {
-            console.log('Error!')
-        };
-    },
+  if (correct) renderNewQuote();
+});
+
+function getRandomQuote() {
+  return fetch(RANDOM_QUOTE_API_URL)
+    .then(response => response.json())
+    .then(data => data.content);
 };
-document.querySelector('#nextText').addEventListener('click', () => {settingsTyping.nextText()});
+
+async function renderNewQuote() {
+  const quote = await getRandomQuote();
+  quoteDisplayElement.innerHTML = '';
+  quote.split('').forEach(character => {
+    const characterSpan = document.createElement('span');
+    characterSpan.innerText = character;
+    quoteDisplayElement.appendChild(characterSpan);
+  })
+  quoteInputElement.value = null;
+  startTimer()
+}
+
+let startTime
+function startTimer() {
+  timerElement.innerText = 0;
+  startTime = new Date();
+  setInterval(() => {
+    timer.innerText = getTimerTime();
+  }, 1000);
+}
+
+function getTimerTime() {
+  return Math.floor((new Date() - startTime) / 1000);
+};
+
+renderNewQuote();
+
+document.querySelector('#nextText').addEventListener('click', () => renderNewQuote());

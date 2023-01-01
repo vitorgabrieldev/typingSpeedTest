@@ -12,7 +12,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- Style Sheets -->
     <link rel="stylesheet" href="./fonts.css">
     <link rel="stylesheet" href="./app.css">
@@ -24,11 +23,14 @@
 <body>
     <!-- Components -->
     <section class="contaienrMain">
+      <div class="containerTimer">
+        <h1 id="timer"></h1>
+      </div>
         <div class="containerInput">
-            <input type="text" placeholder="Digite aqui..." name="inputLetters" onchange="settingsTyping.verifyTyping()" class="inputLetters" id="inputLetters" spellcheck="false">
+            <input autofocus type="text" placeholder="Digite aqui..." name="inputLetters" class="inputLetters" id="quoteInput" spellcheck="false">
         </div>
         <div class="testTyping">
-            <h1 id="text"></h1>
+            <h1 id="quoteDisplay"></h1>
         </div>
         <div class="buttonsFunction">
             <button id="nextText" type="button" class="btns">Trocar</button>
