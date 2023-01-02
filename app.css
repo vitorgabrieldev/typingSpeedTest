@@ -76,3 +76,29 @@ body, html {
     color: rgb(255, 10, 10);
     text-decoration: underline;
 }
+
+.containerHist {
+    background: rgba(37, 35, 35, 0.521);
+    backdrop-filter: blur(5px);
+    width: 50%;
+    height: 50%;
+    border: 1px solid #fefefe;
+    border-radius: .5rem;
+    position: absolute;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+.headerContainer__hist {
+    display: flex;
+    justify-content: end;
+    padding: .5rem 1rem 0 0;
+}
+.headerContainer__hist i {
+    color: #fefefe;
+    font-size: 2.4rem;
+    cursor: pointer;
+    transition: .3s;
+    padding: .2rem;
+    border-radius: 8px;
+}
+.headerContainer__hist i:hover {background: rgb(34, 32, 32);}

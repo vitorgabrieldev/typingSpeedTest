@@ -23,8 +23,10 @@ quoteInputElement.addEventListener('input', () => {
       correct = false;
     };
   });
-
-  if (correct) renderNewQuote();
+  if (correct) {
+    addToLocalstorage(getTimerTime());
+    renderNewQuote();
+  };
 });
 
 function getRandomQuote() {
@@ -40,9 +42,9 @@ async function renderNewQuote() {
     const characterSpan = document.createElement('span');
     characterSpan.innerText = character;
     quoteDisplayElement.appendChild(characterSpan);
-  })
+  });
   quoteInputElement.value = null;
-  startTimer()
+  startTimer();
 }
 
 let startTime
@@ -61,3 +63,14 @@ function getTimerTime() {
 renderNewQuote();
 
 document.querySelector('#nextText').addEventListener('click', () => renderNewQuote());
+document.querySelector('#histRounds').addEventListener('click', () => {
+
+});
+
+var histJson = 1;
+const addToLocalstorage = (object) => {
+  localStorage.setItem(`Time - ${histJson}`, JSON.stringify(object));
+  histJson ++;
+};
+
+document.querySelector('#btnCloseHistContainer').addEventListener('click', () => ());
