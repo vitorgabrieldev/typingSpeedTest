@@ -25,15 +25,28 @@ quoteInputElement.addEventListener('input', () => {
   });
   if (correct) {
     addToLocalstorage(getTimerTime());
+    uploadSetTokenJSON(histJson);
     renderNewQuote();
   };
 });
+
+if(!localStorage.getItem('tokenJSON')) {
+  uploadSetTokenJSON(1);
+} else {
+  var histJson = localStorage.getItem('tokenJSON');
+};
+
+// Settings token JSON
+const uploadSetTokenJSON = (token) => localStorage.setItem('tokenJSON', JSON.stringify(token));
+uploadSetTokenJSON();
 
 function getRandomQuote() {
   return fetch(RANDOM_QUOTE_API_URL)
     .then(response => response.json())
     .then(data => data.content);
 };
+
+let lenghtQuoe 
 
 async function renderNewQuote() {
   const quote = await getRandomQuote();
@@ -64,13 +77,13 @@ renderNewQuote();
 
 document.querySelector('#nextText').addEventListener('click', () => renderNewQuote());
 document.querySelector('#histRounds').addEventListener('click', () => {
-
+  document.querySelector('.containerHist').classList.remove("hidden");
+});
+document.querySelector('#btnCloseHistContainer').addEventListener('click', () => {
+  document.querySelector('.containerHist').classList.add("hidden");
 });
 
-var histJson = 1;
 const addToLocalstorage = (object) => {
   localStorage.setItem(`Time - ${histJson}`, JSON.stringify(object));
   histJson ++;
 };
-
-document.querySelector('#btnCloseHistContainer').addEventListener('click', () => ());

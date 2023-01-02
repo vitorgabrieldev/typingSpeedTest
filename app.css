@@ -81,11 +81,9 @@ body, html {
     background: rgba(37, 35, 35, 0.521);
     backdrop-filter: blur(5px);
     width: 50%;
-    height: 50%;
     border: 1px solid #fefefe;
     border-radius: .5rem;
     position: absolute;
-    margin-top: 5%;
     margin-left: 5%;
 }
 .headerContainer__hist {
@@ -102,3 +100,18 @@ body, html {
     border-radius: 8px;
 }
 .headerContainer__hist i:hover {background: rgb(34, 32, 32);}
+
+.listHist__container {
+    text-align: center;
+}
+
+.item {
+    list-style-type: none;
+    color: #fefefe;
+    font-size: 1.5rem;
+    font-family: sans-serif;
+}
+
+.hidden {
+    display: none;
+}
