@@ -31,14 +31,13 @@ quoteInputElement.addEventListener('input', () => {
 });
 
 if(!localStorage.getItem('tokenJSON')) {
-  uploadSetTokenJSON(1);
-} else {
-  var histJson = localStorage.getItem('tokenJSON');
+  localStorage.setItem('tokenJSON', JSON.stringify(1));
 };
+
+var histJson = localStorage.getItem('tokenJSON');
 
 // Settings token JSON
 const uploadSetTokenJSON = (token) => localStorage.setItem('tokenJSON', JSON.stringify(token));
-uploadSetTokenJSON();
 
 function getRandomQuote() {
   return fetch(RANDOM_QUOTE_API_URL)
@@ -46,10 +45,9 @@ function getRandomQuote() {
     .then(data => data.content);
 };
 
-let lenghtQuoe 
-
 async function renderNewQuote() {
   const quote = await getRandomQuote();
+  localStorage.setItem('lettersQuote', JSON.stringify(quote.length));
   quoteDisplayElement.innerHTML = '';
   quote.split('').forEach(character => {
     const characterSpan = document.createElement('span');
@@ -58,7 +56,7 @@ async function renderNewQuote() {
   });
   quoteInputElement.value = null;
   startTimer();
-}
+};
 
 let startTime
 function startTimer() {
@@ -84,6 +82,15 @@ document.querySelector('#btnCloseHistContainer').addEventListener('click', () =>
 });
 
 const addToLocalstorage = (object) => {
-  localStorage.setItem(`Time - ${histJson}`, JSON.stringify(object));
+  localStorage.setItem(histJson, JSON.stringify(object));
+
+    let timeJSON = localStorage.getItem(histJson);
+    console.log(timeJSON);
+    let lettersJSON = localStorage.getItem(lettersQuote);
+    console.log(lettersJSON);
+      // Print DOM
+      $("#itemList__hist").append(`
+        <li class="item">Letters = ${lettersJSON} - Seconds = ${timeJSON}</li>
+      `);
   histJson ++;
 };

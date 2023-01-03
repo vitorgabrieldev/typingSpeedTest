@@ -39,7 +39,7 @@ body, html {
 #quoteDisplay {
     color: #fefefe;
     font-family: 'Poppins', sans-serif;
-    user-select: none;
+    /* user-select: none; */
 }
 .buttonsFunction {
     background: rgb(49, 47, 47);
