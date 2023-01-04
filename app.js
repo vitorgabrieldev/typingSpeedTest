@@ -24,20 +24,29 @@ quoteInputElement.addEventListener('input', () => {
     };
   });
   if (correct) {
-    addToLocalstorage(getTimerTime());
-    uploadSetTokenJSON(histJson);
+    uploadInfoquote();
     renderNewQuote();
   };
 });
 
-if(!localStorage.getItem('tokenJSON')) {
-  localStorage.setItem('tokenJSON', JSON.stringify(1));
+let tokenHistInfo = 0;
+
+const uploadInfoquote = () => {
+  arrayHistotyTimer.push(getTimerTime());
+  arrayHistotyLetters.push(localStorage.getItem('letters'));
+  // Call function views History
+  showResHistory(tokenHistInfo);
+  tokenHistInfo ++;
 };
 
-var histJson = localStorage.getItem('tokenJSON');
+// for(j = 0; j < arrayHistotyTimer.length; j ++) {
+//   console.log(`Seconds = ${arrayHistotyTimer[j]} - Letters - ${arrayHistotyLetters[j]}`);
+//   tokenHist ++;
+// };
 
-// Settings token JSON
-const uploadSetTokenJSON = (token) => localStorage.setItem('tokenJSON', JSON.stringify(token));
+// Arrays settings
+var arrayHistotyTimer = [];
+var arrayHistotyLetters = [];
 
 function getRandomQuote() {
   return fetch(RANDOM_QUOTE_API_URL)
@@ -47,8 +56,8 @@ function getRandomQuote() {
 
 async function renderNewQuote() {
   const quote = await getRandomQuote();
-  localStorage.setItem('lettersQuote', JSON.stringify(quote.length));
   quoteDisplayElement.innerHTML = '';
+  localStorage.setItem('letters', JSON.stringify(quote.length));
   quote.split('').forEach(character => {
     const characterSpan = document.createElement('span');
     characterSpan.innerText = character;
@@ -75,22 +84,18 @@ renderNewQuote();
 
 document.querySelector('#nextText').addEventListener('click', () => renderNewQuote());
 document.querySelector('#histRounds').addEventListener('click', () => {
-  document.querySelector('.containerHist').classList.remove("hidden");
+  if(!arrayHistotyLetters.length < 1) {
+    document.querySelector('.containerHist').classList.remove("hidden");
+  } else {
+    alert('Does not yet have a history of past matches!');
+  };
 });
 document.querySelector('#btnCloseHistContainer').addEventListener('click', () => {
-  document.querySelector('.containerHist').classList.add("hidden");
+    document.querySelector('.containerHist').classList.add("hidden");
 });
 
-const addToLocalstorage = (object) => {
-  localStorage.setItem(histJson, JSON.stringify(object));
-
-    let timeJSON = localStorage.getItem(histJson);
-    console.log(timeJSON);
-    let lettersJSON = localStorage.getItem(lettersQuote);
-    console.log(lettersJSON);
-      // Print DOM
-      $("#itemList__hist").append(`
-        <li class="item">Letters = ${lettersJSON} - Seconds = ${timeJSON}</li>
-      `);
-  histJson ++;
+const showResHistory = (token) => {
+  $('#itemList__hist').append(`
+    <li class="item">Letters = ${arrayHistotyLetters[token]} - Seconds = ${arrayHistotyTimer[token]}</li>
+  `);
 };
