@@ -39,11 +39,6 @@ const uploadInfoquote = () => {
   tokenHistInfo ++;
 };
 
-// for(j = 0; j < arrayHistotyTimer.length; j ++) {
-//   console.log(`Seconds = ${arrayHistotyTimer[j]} - Letters - ${arrayHistotyLetters[j]}`);
-//   tokenHist ++;
-// };
-
 // Arrays settings
 var arrayHistotyTimer = [];
 var arrayHistotyLetters = [];
